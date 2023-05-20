@@ -18,8 +18,6 @@ public class Grid {
     public int getValue(int column, int row) {
         column = wrapAround(columnLength, column);
         row = wrapAround(rowLength, row);
-        System.out.println(column);
-        System.out.println(row);
         return grid[column][row];
     }
 
@@ -39,6 +37,43 @@ public class Grid {
 
     public int getRowLength() {
         return rowLength;
+    }
+
+    public void visualize() {
+        int maxDigits = getMaxDigits();
+
+        String format = " %" + maxDigits + "d";
+
+        for (int j = 0; j < rowLength; j++) {
+            printHorizontalLine(maxDigits, columnLength);
+
+            for (int[] ints : grid) {
+                System.out.printf(format, ints[j]);
+                System.out.print(" \u2502");
+            }
+            System.out.println();
+        }
+
+        printHorizontalLine(maxDigits, columnLength);
+    }
+
+    private int getMaxDigits() {
+        int maxDigits = 0;
+        for (int[] column : grid) {
+            for (int num : column) {
+                int digits = String.valueOf(num).length();
+                if (digits > maxDigits)
+                    maxDigits = digits;
+            }
+        }
+        return maxDigits;
+    }
+
+    private static void printHorizontalLine(int cellWidth, int columns) {
+        StringBuilder line = new StringBuilder();
+        for (int i = 0; i < columns; i++)
+            line.append("\u2500".repeat(cellWidth + 1)).append("\u2500\u2502");
+        System.out.println(line);
     }
 
     private static int wrapAround(int around, int n) {

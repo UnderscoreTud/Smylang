@@ -10,7 +10,7 @@ public class LexicalAnalyzer implements Cloneable {
     private int pointer = 0;
 
     public LexicalAnalyzer(String data) {
-        this.data = data.replace(" ", "");
+        this.data = data.replaceAll("\\s", "");
     }
 
     public Grid readGrid() {
@@ -36,7 +36,7 @@ public class LexicalAnalyzer implements Cloneable {
 
     private TokenType nextToken() {
         for (TokenType type : TokenType.values()) {
-            if (type.parser.parse(this))
+            if (type.getParser().parse(this))
                 return type;
         }
         throw new RuntimeException("Unexpected character: '" + peek(0) + '\'');

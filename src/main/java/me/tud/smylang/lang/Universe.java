@@ -30,12 +30,20 @@ public class Universe {
         pointer.move(direction, amount);
     }
 
+    public int peek() {
+        return grid.getValue(pointer.peek(direction));
+    }
+
+    public int peek(int amount) {
+        return grid.getValue(pointer.peek(direction, amount));
+    }
+
     public void printAsInt() {
-        System.out.println(getCurrentCell());
+        System.out.print(getCurrentCell());
     }
 
     public void printAsChar() {
-        System.out.println((char) getCurrentCell());
+        System.out.print((char) getCurrentCell());
     }
 
     public void memorize() {
@@ -53,6 +61,22 @@ public class Universe {
 
     public void setCurrentCell(int value) {
         grid.setValue(pointer, value);
+    }
+
+    public Grid getGrid() {
+        return grid;
+    }
+
+    public Pointer getPointer() {
+        return pointer;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void visualizeGrid() {
+        grid.visualize();
     }
 
 }
